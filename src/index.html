@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Full Stack Exercise Challenge</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1>Full Stack Exercise Challenge</h1>
+    <div id='app'>
+      <ul id='comment_box'>
+        <li v-for="comment in comments">
+          {{comment}}
+        </li>
+      </ul>
+      <form @submit.prevent="sendComment">
+        <input type="text" placeholder="Your comment here..." v-model:value="comment" />
+        <input type="submit" value="Send" />
+      </form>
+    </div>
+  </body>
+  <script>
+    let socket = null;
+    const app = new Vue({
+      el: "#app",
+      data: {
+        comment: '',
+        comments: []
+      },
+      methods: {
+        sendComment: function() {
+          socket.emit('comment', this.comment);
+          this.comment = '';
+        },
+      },
+      created: function() {
+        socket = io();
+      },
+      mounted: function() {
+        socket.on('comment', function(comment) {
+          app.comments.push(comment);
+        })
+      }
+    })
+  </script>
+</html>

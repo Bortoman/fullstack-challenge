@@ -1,0 +1,22 @@
+{
+  "name": "fullstackchallenge",
+  "version": "1.0.0",
+  "description": "Realtime comments for a 10-hour long youtube video",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/Bortoman/muzmatch-challenge.git"
+  },
+  "keywords": [
+    "muzmatch"
+  ],
+  "author": "Alessandro Mainas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.2.0"
+  }
+}
