@@ -8,16 +8,34 @@
   </head>
   <body>
     <h1>Full Stack Exercise Challenge</h1>
+    <div id="video">
+      <iframe></iframe>
+    </div>
     <div id='app'>
-      <ul id='comment_box'>
-        <li v-for="comment in comments">
-          {{comment}}
-        </li>
-      </ul>
-      <form @submit.prevent="sendComment">
-        <input type="text" placeholder="Your comment here..." v-model:value="comment" />
-        <input type="submit" value="Send" />
-      </form>
+      <div v-if="state == 0">
+        <ul id='comment_box'>
+          <li v-for="comment in comments">
+            <span>{{comment.username}}</span>
+            <p>{{comment.comment}}</p>
+          </li>
+        </ul>
+        <form @submit.prevent="login">
+          <input type="text" placeholder="Insert your username here..." v-model:value="username" />
+          <input type="submit" value="Send" />
+        </form>
+      </div>
+      <div v-if="state == 1">
+        <ul id='comment_box'>
+          <li v-for="comment in comments">
+            <span>{{comment.username}}</span>
+            <p>{{comment.comment}}</p>
+          </li>
+        </ul>
+        <form @submit.prevent="sendComment">
+          <input type="text" placeholder="Your comment here..." v-model:value="comment" />
+          <input type="submit" value="Send" />
+        </form>
+      </div>
     </div>
   </body>
   <script>
@@ -26,13 +44,20 @@
       el: "#app",
       data: {
         comment: '',
-        comments: []
+        comments: [],
+        state: 0,
+        username: ''
       },
       methods: {
         sendComment: function() {
           socket.emit('comment', this.comment);
           this.comment = '';
         },
+        login: function() {
+          socket.emit('join', this.username);
+          this.username = '';
+          this.state = 1;
+        }
       },
       created: function() {
         socket = io();
