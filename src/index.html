@@ -5,14 +5,14 @@
     <title>Full Stack Exercise Challenge</title>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="/style/style.css"/>
   </head>
   <body>
-    <h1>Full Stack Exercise Challenge</h1>
     <div id="video">
       <iframe></iframe>
     </div>
     <div id='app'>
-      <div v-if="state == 0">
+      <div class="comment_column" v-if="state == 0">
         <ul id='comment_box'>
           <li v-for="comment in comments">
             <span>{{comment.username}}</span>
@@ -20,11 +20,11 @@
           </li>
         </ul>
         <form @submit.prevent="login">
-          <input type="text" placeholder="Insert your username here..." v-model:value="username" />
-          <input type="submit" value="Send" />
+          <input class="textbox" type="text" placeholder="Insert your username here..." v-model:value="username" />
+          <input class="button" type="submit" value="Send" />
         </form>
       </div>
-      <div v-if="state == 1">
+      <div class="comment_column" v-if="state == 1">
         <ul id='comment_box'>
           <li v-for="comment in comments">
             <span>{{comment.username}}</span>
@@ -32,11 +32,13 @@
           </li>
         </ul>
         <form @submit.prevent="sendComment">
-          <input type="text" placeholder="Your comment here..." v-model:value="comment" />
-          <input type="submit" value="Send" />
+          <input class="textbox" type="text" placeholder="Your comment here..." v-model:value="comment" />
+          <input class="button" type="submit" value="Send" />
         </form>
       </div>
     </div>
+    <footer>
+    </footer>
   </body>
   <script>
     let socket = null;

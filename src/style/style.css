@@ -1,0 +1,57 @@
+body {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fb406c;
+  margin: 0;
+}
+#video {
+  margin: 10px;
+  width: calc(75% - 20px);
+  height: 95vh;
+}
+iframe {
+  height: 100%;
+  width: 100%;
+}
+#app {
+  position: relative;
+  margin: 10px;
+  width: calc(25% - 22px);
+  height: 95vh;
+  border: solid gray 1px;
+}
+#comment_box {
+  overflow-y: scroll;
+  height: 90%;
+  margin: 0;
+}
+.comment_column {
+  width: 100%;
+  height: 100%;
+}
+form {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  border-top: solid gray 1px;
+}
+.textbox {
+  margin: 6px 2px;
+  padding: 5px;
+  width: calc(80% - 14px);
+  height: 20%;
+  align-self: center;
+}
+.button {
+  margin: 2px;
+  width: calc(20% - 4px);
+  border-radius: 6px;
+  height: 50%;
+  align-self: center;
+}
+footer {
+  background-color: black;
+  height: 100px;
+  width: 100%;
+}
