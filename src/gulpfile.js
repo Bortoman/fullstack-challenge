@@ -1,0 +1,12 @@
+var gulp = require('gulp');
+var less = require('gulp-less');
+
+gulp.task('compile-less', function () {
+  gulp.src('./less/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('./style/'));
+});
+
+gulp.task('watch-less', function() {
+  gulp.watch('./less/*.less', gulp.series('compile-less'));
+});

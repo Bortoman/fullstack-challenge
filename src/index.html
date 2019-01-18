@@ -12,22 +12,27 @@
       <iframe></iframe>
     </div>
     <div id='app'>
-      <div class="comment_column" v-if="state == 0">
+      <div class="comment_column login" v-if="state == 0">
         <ul id='comment_box'>
           <li v-for="comment in comments">
-            <span>{{comment.username}}</span>
+            <div class="comment_header">
+              <span class="avatar">{{comment.avatar}}</span><span>{{comment.username}}</span>
+            </div>
             <p>{{comment.comment}}</p>
           </li>
         </ul>
         <form @submit.prevent="login">
-          <input class="textbox" type="text" placeholder="Insert your username here..." v-model:value="username" />
-          <input class="button" type="submit" value="Send" />
+          <label for="username">Insert your username to join the conversation!</label>
+          <input class="textbox" type="text" id="username" placeholder="Insert your username here..." v-model:value="username" />
+          <input class="button" type="submit" value="Join" />
         </form>
       </div>
       <div class="comment_column" v-if="state == 1">
         <ul id='comment_box'>
           <li v-for="comment in comments">
-            <span>{{comment.username}}</span>
+            <div class="comment_header">
+              <span class="avatar">{{comment.avatar}}</span><span>{{comment.username}}</span>
+            </div>
             <p>{{comment.comment}}</p>
           </li>
         </ul>
@@ -48,7 +53,8 @@
         comment: '',
         comments: [],
         state: 0,
-        username: ''
+        username: '',
+        avatar: ''
       },
       methods: {
         sendComment: function() {

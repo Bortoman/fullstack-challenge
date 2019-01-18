@@ -1,3 +1,6 @@
+/*
+  -- VARIABLES --
+*/
 body {
   display: flex;
   flex-wrap: wrap;
@@ -20,35 +23,43 @@ iframe {
   height: 95vh;
   border: solid gray 1px;
 }
-#comment_box {
-  overflow-y: scroll;
-  height: 90%;
-  margin: 0;
-}
 .comment_column {
   width: 100%;
   height: 100%;
 }
-form {
+.comment_column #comment_box {
+  overflow-y: scroll;
+  height: 90%;
+  margin: 0;
+}
+.comment_column form {
   height: 10%;
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
   border-top: solid gray 1px;
+  transition: height ease 1s;
 }
-.textbox {
+.comment_column form .textbox {
   margin: 6px 2px;
   padding: 5px;
   width: calc(80% - 14px);
   height: 20%;
   align-self: center;
 }
-.button {
+.comment_column form .button {
   margin: 2px;
   width: calc(20% - 4px);
   border-radius: 6px;
   height: 50%;
   align-self: center;
+}
+.comment_column.login #comment_box {
+  height: 70%;
+}
+.comment_column.login form {
+  height: 30%;
+  transition: height ease 1s;
 }
 footer {
   background-color: black;
