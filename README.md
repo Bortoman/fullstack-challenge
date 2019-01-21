@@ -1,7 +1,8 @@
 # muzmatch-challenge
 Full Stack Exercise Challenge: Realtime comments for a 10-hours long Youtube video
+
 ---
-## How to launch the web application
+## How to run the web application
 
 Clone or download the repository and navigate to src directory:
 
