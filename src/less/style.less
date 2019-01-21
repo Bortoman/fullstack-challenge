@@ -1,10 +1,15 @@
 /*
   -- VARIABLES --
 */
+
 @pink : #fb406c;
 @black: #111;
 @lightgray: #E3E3E3;
 @yellow: #fed900;
+
+/*
+* I started with a 2 columns layout for the desktop web browsers.
+*/
 
 body {
   background-color: @lightgray;
@@ -161,6 +166,10 @@ footer {
   height: 100px;
   width: 100%;
 }
+
+/*
+* For the mobile web browsers the layout changes to 1 column.
+*/
 
 @media only screen and (max-width: 1024px) {
   .wrapper {

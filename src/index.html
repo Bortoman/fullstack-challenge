@@ -67,6 +67,11 @@
     </footer>
   </body>
   <script>
+  /*
+  * The vue component is responsible for handling the comments.
+  * User input is handled with methods sendComment and login
+  * Random comments are added through 'comment' event serverside
+  */
     let socket = null;
     const app = new Vue({
       el: "#app",
