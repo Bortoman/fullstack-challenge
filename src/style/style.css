@@ -53,6 +53,7 @@ body::before {
   background-color: #E3E3E3;
   border-radius: 3px;
   padding: 4px;
+  padding-right: 3px;
 }
 .comment_column #comment_box {
   overflow-y: scroll;
