@@ -17,7 +17,7 @@ Clone or download the repository and navigate to src directory:
 ```bash
     docker run -it -p <your-port>:3000 <app-name>
 ```
-3. Visit: http://localhost:<your-port>
+3. Visit: http://localhost: <your-port>
 
 ### Without Docker:
 1. Install dependecies
