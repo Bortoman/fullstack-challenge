@@ -7,10 +7,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="/style/style.css"/>
+    <link rel="stylesheet" href="/style/animate.css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   </head>
   <body>
     <div class="wrapper">
+      <div id="add-comment-overlay">
+        <a href="#submit"><img src="/images/add-comment.png"/></a>
+      </div>
       <div id="video">
         <iframe src="https://www.youtube.com/embed/ovmSF0RIwTQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
@@ -101,6 +105,7 @@
       },
       created: function() {
         socket = io();
+        document.getElementById('add-comment-overlay').classList.add('animated', 'fadeInUp');
       },
       mounted: function() {
         socket.on('comment', function(comment) {
