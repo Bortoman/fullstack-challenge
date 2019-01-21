@@ -2,44 +2,61 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Full Stack Exercise Challenge</title>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="/style/style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   </head>
   <body>
-    <div id="video">
-      <iframe></iframe>
-    </div>
-    <div id='app'>
-      <div class="comment_column login" v-if="state == 0">
-        <ul id='comment_box'>
-          <li v-for="comment in comments">
-            <div class="comment_header">
-              <span class="avatar">{{comment.avatar}}</span><span>{{comment.username}}</span>
-            </div>
-            <p>{{comment.comment}}</p>
-          </li>
-        </ul>
-        <form @submit.prevent="login">
-          <label for="username">Insert your username to join the conversation!</label>
-          <input class="textbox" type="text" id="username" placeholder="Insert your username here..." v-model:value="username" />
-          <input class="button" type="submit" value="Join" />
-        </form>
+    <div class="wrapper">
+      <div id="video">
+        <iframe src="https://www.youtube.com/embed/ovmSF0RIwTQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
-      <div class="comment_column" v-if="state == 1">
-        <ul id='comment_box'>
-          <li v-for="comment in comments">
-            <div class="comment_header">
-              <span class="avatar">{{comment.avatar}}</span><span>{{comment.username}}</span>
+      <div id='app'>
+        <div class="comment_column login" v-if="state == 0">
+          <ul id='comment_box' v-on:scroll="handleCommentsScrolling">
+            <li v-for="comment in comments">
+              <div class="comment_header">
+                <span class="avatar">{{comment.avatar}}</span><span><b>{{comment.username}}</b></span>
+              </div>
+              <p>{{comment.comment}}</p>
+            </li>
+          </ul>
+          <form @submit.prevent="login">
+            <label class="label" for="username">Insert your username to join the conversation!</label>
+            <div class="form-row">
+              <div class="input">
+                <input class="textbox" type="text" id="username" placeholder="Insert your username here..." v-model:value="username"/>
+                <span class="focus-border"></span>
+              </div>
+              <input class="button" id="submit" type="submit" value="Join" />
             </div>
-            <p>{{comment.comment}}</p>
-          </li>
-        </ul>
-        <form @submit.prevent="sendComment">
-          <input class="textbox" type="text" placeholder="Your comment here..." v-model:value="comment" />
-          <input class="button" type="submit" value="Send" />
-        </form>
+          </form>
+        </div>
+        <div class="comment_column" v-if="state == 1">
+          <ul id='comment_box' v-on:scroll="handleCommentsScrolling">
+            <li v-for="comment in comments">
+              <div class="comment_header">
+                <span class="avatar">{{comment.avatar}}</span><span><b>{{comment.username}}</b></span>
+              </div>
+              <p>{{comment.comment}}</p>
+            </li>
+          </ul>
+          <form @submit.prevent="sendComment">
+            <div class="form-row">
+              <p class="label">You can now comment as {{username}}</p>
+            </div>
+            <div class="form-row">
+              <div class="input">
+                <textarea class="textbox" id="comment" placeholder="Your comment here..." v-model:value="comment"></textarea>
+                <span class="focus-border"></span>
+              </div>
+              <input class="button" id="submit" type="submit" value="Send" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <footer>
@@ -54,17 +71,32 @@
         comments: [],
         state: 0,
         username: '',
-        avatar: ''
+        avatar: '',
+        auto_scroll_enabled: true
       },
       methods: {
         sendComment: function() {
-          socket.emit('comment', this.comment);
-          this.comment = '';
+          if (this.comment != '') {
+            socket.emit('comment', this.comment);
+            this.comment = '';
+          }
         },
         login: function() {
-          socket.emit('join', this.username);
-          this.username = '';
-          this.state = 1;
+          if (this.username != '') {
+            socket.emit('join', this.username);
+            this.state = 1;
+          }
+        },
+        handleCommentsScrolling: function() {
+          let comment_section = document.getElementById('comment_box');
+          let scroll_delta = comment_section.scrollHeight -
+                             comment_section.clientHeight -
+                             comment_section.lastElementChild.clientHeight;
+          if (comment_section.scrollTop < scroll_delta) {
+            this.auto_scroll_enabled = false;
+          } else {
+            this.auto_scroll_enabled = true;
+          }
         }
       },
       created: function() {
@@ -73,8 +105,14 @@
       mounted: function() {
         socket.on('comment', function(comment) {
           app.comments.push(comment);
+          app.$nextTick( () => {
+            let comment_section = document.getElementById('comment_box');
+            if (app.auto_scroll_enabled) {
+              comment_section.scrollTop = comment_section.scrollHeight;
+            }
+          });
         })
       }
-    })
+    });
   </script>
 </html>

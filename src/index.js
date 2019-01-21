@@ -9,6 +9,7 @@ const usernames = JSON.parse(fs.readFileSync(__dirname + '/usernames.json'))
 const avatars = JSON.parse(fs.readFileSync(__dirname + '/avatars.json'))
 
 app.use('/style', express.static(__dirname + '/style'))
+app.use('/images', express.static(__dirname + '/images'))
 app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'))
 
 const random_integer = (min, max) => {

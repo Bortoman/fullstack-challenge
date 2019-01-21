@@ -2,70 +2,198 @@
   -- VARIABLES --
 */
 @pink : #fb406c;
+@black: #111;
+@lightgray: #E3E3E3;
+@yellow: #fed900;
 
 body {
+  background-color: @lightgray;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  &::before {
+    position: absolute;
+    height: 300px;
+    top: 0;
+    left: 0;
+    content: "";
+    background: @pink;
+    width: 100%;
+    z-index: -1;
+  }
+}
+.wrapper {
+  width: 100%;
+  max-width: 1600px;
+  margin:100px auto;
   display: flex;
   flex-wrap: wrap;
-  background-color: @pink;
-  margin: 0;
 }
 #video {
   margin: 10px;
-  width: calc(75% - 20px);
+  padding: 2px;
+  width: calc(70% - 24px);
   height: 95vh;
-}
-iframe {
-  height: 100%;
-  width: 100%;
+  max-height: 720px;
+  border-radius: 3px;
+  background-color: black;
+  align-self: center;
+  iframe {
+    height: 100%;
+    width: 100%;
+  }
 }
 #app {
   position: relative;
   margin: 10px;
-  width: calc(25% - 22px);
+  width: calc(30% - 22px);
   height: 95vh;
-  border: solid gray 1px;
+  max-height: 720px;
+  align-self: center;
+  border: solid @black 1px;
+  border-radius: 3px;
 }
 .comment_column {
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  background-color: @lightgray;
+  border-radius: 3px;
+  padding: 4px;
   #comment_box {
     overflow-y: scroll;
-    height: 90%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    height: 80%;
     margin: 0;
+    padding: 0;
+    li {
+      padding:8px;
+      background-color: @lightgray;
+      display: flex;
+      flex-direction: column;
+      transition: ease 0.6s;
+      &:last-child {
+        background-color: rgba(200,200,200,0.8);
+      }
+      .comment_header {
+        padding: 10px 0;
+        span {
+          padding: 0 8px;
+          &.avatar {
+            font-size: 24px;
+            padding: 6px;
+            background-color: @pink;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
   }
   form {
-    height: 10%;
-    width: 100%;
+    height: 20%;
+    width: calc(100% - 20px);
     display: flex;
     flex-wrap: nowrap;
-    border-top: solid gray 1px;
-    .textbox {
+    flex-direction: column;
+    background-color: @lightgray;
+    border-top: solid @black 1px;
+    padding: 0 10px;
+    .label {
+      text-align: center;
+      font-size: 18px;
+      padding: 20px 5px;
+      font-weight: bold;
+    }
+    .form-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100%;
+    }
+    .input {
       margin: 6px 2px;
-      padding: 5px;
-      width: calc(80% - 14px);
-      height: 20%;
-      align-self: center;
+      padding: 8px;
+      position: relative;
+      height: 30px;
+      width: calc(80% - 18px);
+      .focus-border {
+        position: absolute;
+        top: 40px;
+        width:0;
+        left: 50%;
+        background-color: @pink;
+        height: 3px;
+        transition: 0.3s;
+      }
+      input[type="text"], textarea {
+        font-family: 'Montserrat', sans-serif;
+        background-color: @lightgray;
+        border: none;
+        border-bottom: solid 1px @black;
+        outline: none;
+        height: 100%;
+        width: 100%;
+        &:focus ~ .focus-border{
+          width: 100%;
+          left: 0;
+          transition: 0.3s;
+        }
+      }
     }
     .button {
       margin: 2px;
-      width: calc(20% - 4px);
+      padding: 8px 0;
       border-radius: 6px;
-      height: 50%;
-      align-self: center;
-    }
-  }
-  &.login {
-    #comment_box {
-      height: 70%;
-    }
-    form {
-      height: 30%;
+      width: calc(20% - 4px);
+      background: @yellow;
+      color: @black;
+      border-color: @yellow;
     }
   }
 }
 
 footer {
-  background-color: black;
+  background-color: @black;
   height: 100px;
   width: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+  .wrapper {
+    max-width: 768px;
+  }
+  #app {
+    width: calc(100% - 20px);
+    height: 600px;
+    max-width: unset;
+    .comment_column {
+      #comment_box {
+        height: 60%;
+      }
+      form {
+        height: 40%;
+      }
+    }
+  }
+  #video {
+    width: calc(100% - 22px);
+    height: 300px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .wrapper {
+    margin: 20px auto;
+  }
+  #app {
+    .comment_column {
+      form {
+        .form-row {
+          flex-direction: column;
+          .button {
+            width: calc(80% - 4px);
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
+var vueify = require('gulp-vueify');
 
 gulp.task('compile-less', function () {
   gulp.src('./less/*.less')
@@ -8,5 +9,5 @@ gulp.task('compile-less', function () {
 });
 
 gulp.task('watch-less', function() {
-  gulp.watch('./less/*.less', gulp.series('compile-less'));
+  gulp.watch('./less/*.less', ['compile-less']);
 });
