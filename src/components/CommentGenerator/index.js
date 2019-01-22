@@ -1,4 +1,4 @@
-const RandomNumber = require('../RandomNumber/index.js')
+const RandomNumber = require('../RandomNumber')
 const fs = require('fs')
 const comments = JSON.parse(fs.readFileSync(__dirname + '/json/comments.json'))
 const usernames = JSON.parse(fs.readFileSync(__dirname + '/json/usernames.json'))

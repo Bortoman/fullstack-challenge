@@ -13,7 +13,7 @@ const app = express()
 const http = require('http').Server(app)
 
 const io = require('socket.io')(http)
-const cg = require('./components/CommentGenerator/')
+const cg = require('./components/CommentGenerator')
 const rn = require('./components/RandomNumber')
 
 app.use('/style', express.static(__dirname + '/style'))
